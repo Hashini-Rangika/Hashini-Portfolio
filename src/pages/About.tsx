@@ -213,7 +213,7 @@ const About = () => {
         >
           {[
             {
-              value: "2+",
+              value: "3+",
               label: "Years of Study",
               icon: "📚",
               gradient: "from-cyan-400 to-blue-400",
