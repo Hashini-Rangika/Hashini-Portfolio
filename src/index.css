@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Global dark theme */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[#0B0F1A] text-gray-200 font-sans;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}
