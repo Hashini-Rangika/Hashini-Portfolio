@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Sun, Moon, Palette } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 const themes = {
   cyan: {
@@ -70,9 +71,9 @@ const navItems = [
 ];
 
 const Home = () => {
-  const [isDark, setIsDark] = useState(true);
   const [currentTheme, setCurrentTheme] = useState<keyof typeof themes>("cyan");
   const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const { isDark, toggleDark } = useTheme();
 
   const theme = themes[currentTheme];
 
@@ -176,7 +177,7 @@ const Home = () => {
         />
       </div>
 
-      {/* SIDEBAR - UNCHANGED */}
+      {/* SIDEBAR */}
       <aside
         className={`fixed left-0 top-0 h-screen w-20 ${
           isDark ? "bg-slate-900/80" : "bg-white/80"
@@ -191,7 +192,7 @@ const Home = () => {
           HW
         </div>
 
-        {/* NAVIGATION (FIXED) */}
+        {/* NAVIGATION */}
         <nav className='flex-1 flex flex-col gap-6'>
           {navItems.map((item) => (
             <NavLink
@@ -226,7 +227,7 @@ const Home = () => {
         {/* THEME CONTROLS */}
         <div className='flex flex-col gap-3'>
           <button
-            onClick={() => setIsDark(!isDark)}
+            onClick={toggleDark}
             className='w-12 h-12 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center'
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -266,11 +267,11 @@ const Home = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className='w-full max-w-5xl'
+          className='w-full max-w-7xl'
         >
-          {/* Glass morphism card */}
+          {/* Glass morphism card with photo */}
           <div
-            className={`text-center p-8 md:p-16 relative group overflow-hidden rounded-3xl border shadow-2xl
+            className={`p-8 md:p-16 relative group overflow-hidden rounded-3xl border shadow-2xl
             ${
               isDark
                 ? "bg-white/5 backdrop-blur-xl border-white/10"
@@ -311,372 +312,413 @@ const Home = () => {
               className={`absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 rounded-br-xl ${theme.border}/30`}
             />
 
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className='mb-6 flex justify-center'
-            >
-              <div
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm
-                ${
-                  isDark
-                    ? `bg-gradient-to-r ${theme.primary}/10 border-${
-                        theme.border.split("-")[1]
-                      }-500/30`
-                    : "bg-gradient-to-r from-slate-100 to-slate-200 border-slate-300"
-                }`}
+            {/* Two Column Layout: Photo + Content */}
+            <div className='flex flex-col lg:flex-row items-center gap-12 lg:gap-16'>
+              {/* LEFT: Photo Section */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className='flex-shrink-0'
               >
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className={`w-2 h-2 rounded-full ${
-                    isDark ? theme.text : "bg-green-500"
-                  }`}
-                />
-                <span
-                  className={`text-sm font-semibold tracking-wide ${
-                    isDark ? theme.text : "text-slate-700"
-                  }`}
-                >
-                  AVAILABLE FOR OPPORTUNITIES
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Greeting */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              <h2
-                className={`text-base md:text-lg mb-4 font-light tracking-[0.2em] uppercase
-                ${isDark ? "text-gray-400" : "text-slate-600"}
-              `}
-              >
-                Welcome to my portfolio
-              </h2>
-            </motion.div>
-
-            {/* Enhanced Main Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <h1 className='text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight'>
-                <span
-                  className={`inline-block ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  Hi, I'm{" "}
-                </span>
-                <br />
-                <motion.span
-                  className={`inline-block bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent relative`}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    backgroundSize: "200% auto",
-                    fontWeight: 800,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  Hashini Wickramasooriya
-                  {/* Text glow effect */}
-                  <motion.span
-                    className={`absolute inset-0 bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent blur-lg opacity-50 -z-10`}
-                    animate={{
-                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    style={{ backgroundSize: "200% auto" }}
+                <div className='relative'>
+                  {/* Photo container with multiple effects */}
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className='relative'
                   >
-                    Hashini Wickramasooriya
-                  </motion.span>
-                </motion.span>
-              </h1>
-            </motion.div>
+                    {/* Animated gradient border */}
+                    <motion.div
+                      className={`absolute -inset-1 bg-gradient-to-r ${theme.primary} rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500`}
+                      animate={{
+                        rotate: [0, 360],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    />
 
-            {/* Role with enhanced typing effect */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className='relative inline-block mb-8'
-            >
-              <div className='flex items-center justify-center gap-3'>
-                <motion.div
-                  className={`w-1 h-8 md:h-10 rounded-full bg-gradient-to-b ${theme.primary}`}
-                  animate={{
-                    scaleY: [1, 0.8, 1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <p
-                  className={`text-xl md:text-2xl lg:text-3xl font-light tracking-wide
-                  ${isDark ? "text-gray-200" : "text-slate-700"}
-                `}
-                >
-                  Aspiring QA Engineer & Business Analyst
-                  <motion.span
-                    animate={{ opacity: [1, 0, 1] }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className={`inline-block w-0.5 h-6 md:h-8 ml-2 align-middle ${theme.text}`}
-                  />
-                </p>
-                <motion.div
-                  className={`w-1 h-8 md:h-10 rounded-full bg-gradient-to-b ${theme.secondary}`}
-                  animate={{
-                    scaleY: [1, 0.8, 1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.75,
-                  }}
-                />
-              </div>
-            </motion.div>
+                    {/* Photo with glass border */}
+                    <div className='relative rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl'>
+                      <img
+                        src='/hashini-profile.jpeg'
+                        alt='Hashini Wickramasooriya'
+                        className='w-72 h-72 lg:w-80 lg:h-80 object-cover'
+                      />
 
-            {/* Enhanced value proposition */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className='max-w-3xl mx-auto mb-12'
-            >
-              <div
-                className={`flex items-start gap-4 p-6 rounded-2xl border backdrop-blur-sm
-                ${
-                  isDark
-                    ? "bg-white/5 border-white/10"
-                    : "bg-slate-100 border-slate-200"
-                }`}
-              >
-                <motion.div
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className='text-3xl flex-shrink-0 mt-1'
-                >
-                  🎯
-                </motion.div>
-                <p
-                  className={`leading-relaxed text-base md:text-lg text-left
-                  ${isDark ? "text-gray-300" : "text-slate-700"}
-                `}
-                >
-                  I focus on{" "}
-                  <span className={`${theme.text} font-semibold`}>
-                    software Quality Assurance
-                  </span>
-                  ,
-                  <span className={`${theme.textSecondary} font-semibold`}>
-                    {" "}
-                    Business analytics
-                  </span>
-                  , and
-                  <span className={`${theme.textAccent} font-semibold`}>
-                    {" "}
-                    building user-centered systems
-                  </span>{" "}
-                  by identifying issues early and improving reliability.
-                </p>
-              </div>
-            </motion.div>
+                      {/* Overlay gradient on hover */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className={`absolute inset-0 bg-gradient-to-t ${theme.primary}/20`}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
 
-            {/* Enhanced action buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className='flex flex-col sm:flex-row gap-4 justify-center mb-12'
-            >
-              <motion.a
-                href='/projects'
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className={`group relative px-8 py-4 rounded-xl font-bold overflow-hidden transition-all duration-300 shadow-lg
-                  bg-gradient-to-r ${theme.primary} text-white hover:shadow-2xl
-                `}
-              >
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-r ${theme.secondary}`}
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <span className='relative z-10 flex items-center gap-2'>
-                  View My Projects
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    {/* Floating decorative elements */}
+                    <motion.div
+                      animate={{
+                        y: [0, -10, 0],
+                        rotate: [0, 5, 0],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className={`absolute -top-4 -right-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${theme.primary} flex items-center justify-center text-3xl shadow-xl`}
+                    >
+                      ✨
+                    </motion.div>
+
+                    <motion.div
+                      animate={{
+                        y: [0, 10, 0],
+                        rotate: [0, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1,
+                      }}
+                      className={`absolute -bottom-4 -left-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${theme.secondary} flex items-center justify-center text-3xl shadow-xl`}
+                    >
+                      🎯
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Status badge below photo */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                    className='mt-6 flex justify-center'
                   >
-                    →
-                  </motion.span>
-                </span>
-              </motion.a>
+                    <div
+                      className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm
+                      ${
+                        isDark
+                          ? `bg-gradient-to-r ${theme.primary}/10 border-cyan-500/30`
+                          : "bg-gradient-to-r from-slate-100 to-slate-200 border-slate-300"
+                      }`}
+                    >
+                      <motion.div
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [1, 0.5, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className={`w-2 h-2 rounded-full ${
+                          isDark ? theme.text : "bg-green-500"
+                        }`}
+                      />
+                      <span
+                        className={`text-xs font-semibold tracking-wide ${
+                          isDark ? theme.text : "text-slate-700"
+                        }`}
+                      >
+                        AVAILABLE FOR OPPORTUNITIES
+                      </span>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
 
-              <motion.a
-                href='/contact'
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className={`group relative px-8 py-4 rounded-xl border-2 font-bold overflow-hidden backdrop-blur-sm transition-all duration-300
-                  ${
-                    isDark
-                      ? `border-white/20 text-white hover:border-cyan-400/50`
-                      : `border-slate-300 text-slate-700 hover:border-slate-400`
-                  }
-                `}
-              >
+              {/* RIGHT: Text Content */}
+              <div className='flex-1 text-center lg:text-left'>
+                {/* Greeting */}
                 <motion.div
-                  className={`absolute inset-0 ${
-                    isDark ? "bg-white/5" : "bg-slate-100"
-                  }`}
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileHover={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <span
-                  className={`relative z-10 transition-colors duration-300 flex items-center gap-2
-                  ${
-                    isDark
-                      ? `group-hover:${theme.text}`
-                      : "group-hover:text-slate-900"
-                  }
-                `}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Contact Me
-                  <motion.span
-                    className='opacity-0 group-hover:opacity-100'
-                    initial={{ x: -10 }}
-                    whileHover={{ x: 0 }}
-                  >
-                    💬
-                  </motion.span>
-                </span>
-              </motion.a>
-            </motion.div>
-
-            {/* Quick stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className={`flex flex-wrap justify-center gap-8 pt-8 border-t
-                ${isDark ? "border-white/10" : "border-slate-200"}
-              `}
-            >
-              {[
-                { label: "Years of Study", value: "3+", icon: "📚" },
-                { label: "Focus Areas", value: "QA/BA", icon: "🎯" },
-                { label: "Projects", value: "10+", icon: "💼" },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                  whileHover={{ scale: 1.1 }}
-                  className='flex flex-col items-center gap-2 cursor-default'
-                >
-                  <div className='text-2xl'>{stat.icon}</div>
-                  <div
-                    className={`text-2xl font-bold bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent`}
-                  >
-                    {stat.value}
-                  </div>
-                  <div
-                    className={`text-xs uppercase tracking-wider
+                  <h2
+                    className={`text-base md:text-lg mb-4 font-light tracking-[0.2em] uppercase
                     ${isDark ? "text-gray-400" : "text-slate-600"}
                   `}
                   >
-                    {stat.label}
+                    Welcome to my portfolio
+                  </h2>
+                </motion.div>
+
+                {/* Enhanced Main Title */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight'>
+                    <span
+                      className={`inline-block ${
+                        isDark ? "text-white" : "text-slate-900"
+                      }`}
+                    >
+                      Hi, I'm{" "}
+                    </span>
+                    <br />
+                    <motion.span
+                      className={`inline-block bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent relative`}
+                      animate={{
+                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                      }}
+                      transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      style={{
+                        backgroundSize: "200% auto",
+                        fontWeight: 800,
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      Hashini Wickramasooriya
+                      {/* Text glow effect */}
+                      <motion.span
+                        className={`absolute inset-0 bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent blur-lg opacity-50 -z-10`}
+                        animate={{
+                          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        style={{ backgroundSize: "200% auto" }}
+                      >
+                        Hashini Wickramasooriya
+                      </motion.span>
+                    </motion.span>
+                  </h1>
+                </motion.div>
+
+                {/* Role with enhanced typing effect */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className='relative inline-block mb-8'
+                >
+                  <div className='flex items-center justify-center lg:justify-start gap-3'>
+                    <motion.div
+                      className={`w-1 h-8 md:h-10 rounded-full bg-gradient-to-b ${theme.primary}`}
+                      animate={{
+                        scaleY: [1, 0.8, 1],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    <p
+                      className={`text-lg md:text-xl lg:text-2xl font-light tracking-wide
+                      ${isDark ? "text-gray-200" : "text-slate-700"}
+                    `}
+                    >
+                      Aspiring QA Engineer & Business Analyst
+                      <motion.span
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className={`inline-block w-0.5 h-6 md:h-8 ml-2 align-middle ${theme.text}`}
+                      />
+                    </p>
+                    <motion.div
+                      className={`w-1 h-8 md:h-10 rounded-full bg-gradient-to-b ${theme.secondary}`}
+                      animate={{
+                        scaleY: [1, 0.8, 1],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.75,
+                      }}
+                    />
                   </div>
                 </motion.div>
-              ))}
-            </motion.div>
 
-            {/* Scroll indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5, duration: 1 }}
-              className='absolute -bottom-20 left-1/2 -translate-x-1/2'
-            >
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className={`flex flex-col items-center gap-2
-                  ${isDark ? "text-gray-500" : "text-slate-400"}
-                `}
-              >
-                <span className='text-xs tracking-[0.3em] uppercase font-semibold'>
-                  Scroll
-                </span>
-                <div
-                  className={`w-6 h-10 rounded-full border-2 flex items-start justify-center p-2 relative overflow-hidden
-                  ${theme.border}/30
-                `}
+                {/* Enhanced value proposition */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  className='mb-8'
                 >
-                  <motion.div
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className={`w-1.5 h-1.5 rounded-full ${theme.text} shadow-lg`}
-                    style={{
-                      boxShadow: isDark ? `0 0 10px ${theme.text}` : "none",
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </motion.div>
+                  <div
+                    className={`flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm
+                    ${
+                      isDark
+                        ? "bg-white/5 border-white/10"
+                        : "bg-slate-100 border-slate-200"
+                    }`}
+                  >
+                    <motion.div
+                      animate={{
+                        rotate: [0, 5, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className='text-2xl flex-shrink-0 mt-1'
+                    >
+                      🎯
+                    </motion.div>
+                    <p
+                      className={`leading-relaxed text-sm md:text-base text-left
+                      ${isDark ? "text-gray-300" : "text-slate-700"}
+                    `}
+                    >
+                      I focus on{" "}
+                      <span className={`${theme.text} font-semibold`}>
+                        software Quality Assurance
+                      </span>
+                      ,
+                      <span className={`${theme.textSecondary} font-semibold`}>
+                        {" "}
+                        Business analytics
+                      </span>
+                      , and
+                      <span className={`${theme.textAccent} font-semibold`}>
+                        {" "}
+                        building user-centered systems
+                      </span>{" "}
+                      by identifying issues early and improving reliability.
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Enhanced action buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8'
+                >
+                  <motion.a
+                    href='/projects'
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`group relative px-8 py-4 rounded-xl font-bold overflow-hidden transition-all duration-300 shadow-lg
+                      bg-gradient-to-r ${theme.primary} text-white hover:shadow-2xl
+                    `}
+                  >
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-r ${theme.secondary}`}
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    <span className='relative z-10 flex items-center gap-2'>
+                      View My Projects
+                      <motion.span
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        →
+                      </motion.span>
+                    </span>
+                  </motion.a>
+
+                  <motion.a
+                    href='/contact'
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`group relative px-8 py-4 rounded-xl border-2 font-bold overflow-hidden backdrop-blur-sm transition-all duration-300
+                      ${
+                        isDark
+                          ? `border-white/20 text-white hover:border-cyan-400/50`
+                          : `border-slate-300 text-slate-700 hover:border-slate-400`
+                      }
+                    `}
+                  >
+                    <motion.div
+                      className={`absolute inset-0 ${
+                        isDark ? "bg-white/5" : "bg-slate-100"
+                      }`}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    <span
+                      className={`relative z-10 transition-colors duration-300 flex items-center gap-2
+                      ${
+                        isDark
+                          ? `group-hover:${theme.text}`
+                          : "group-hover:text-slate-900"
+                      }
+                    `}
+                    >
+                      Contact Me
+                      <motion.span
+                        className='opacity-0 group-hover:opacity-100'
+                        initial={{ x: -10 }}
+                        whileHover={{ x: 0 }}
+                      >
+                        💬
+                      </motion.span>
+                    </span>
+                  </motion.a>
+                </motion.div>
+
+                {/* Quick stats */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                  className={`flex flex-wrap justify-center lg:justify-start gap-6 pt-6 border-t
+                    ${isDark ? "border-white/10" : "border-slate-200"}
+                  `}
+                >
+                  {[
+                    { label: "Years of Study", value: "3+", icon: "📚" },
+                    { label: "Focus Areas", value: "QA/BA", icon: "🎯" },
+                    { label: "Projects", value: "10+", icon: "💼" },
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
+                      whileHover={{ scale: 1.1 }}
+                      className='flex flex-col items-center gap-2 cursor-default'
+                    >
+                      <div className='text-2xl'>{stat.icon}</div>
+                      <div
+                        className={`text-2xl font-bold bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent`}
+                      >
+                        {stat.value}
+                      </div>
+                      <div
+                        className={`text-xs uppercase tracking-wider
+                        ${isDark ? "text-gray-400" : "text-slate-600"}
+                      `}
+                      >
+                        {stat.label}
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </main>
