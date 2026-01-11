@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Sun, Moon, Palette } from "lucide-react";
 import { motion } from "framer-motion";
@@ -98,7 +98,7 @@ const Home = () => {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
           }}
           className={`absolute top-1/4 -left-20 w-96 h-96 ${theme.glow} rounded-full blur-3xl`}
         />
@@ -112,7 +112,7 @@ const Home = () => {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
             delay: 2,
           }}
           className={`absolute bottom-1/4 -right-20 w-[500px] h-[500px] ${theme.glow2} rounded-full blur-3xl`}
@@ -125,7 +125,7 @@ const Home = () => {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
             delay: 1,
           }}
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] ${
@@ -154,7 +154,7 @@ const Home = () => {
               duration: 3 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 2,
-              ease: "easeInOut",
+              ease: [0.42, 0, 0.58, 1],
             }}
           />
         ))}
@@ -266,7 +266,7 @@ const Home = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className='w-full max-w-7xl'
         >
           {/* Glass morphism card with photo */}
@@ -367,7 +367,7 @@ const Home = () => {
                       transition={{
                         duration: 3,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                       }}
                       className={`absolute -top-4 -right-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${theme.primary} flex items-center justify-center text-3xl shadow-xl`}
                     >
@@ -382,7 +382,7 @@ const Home = () => {
                       transition={{
                         duration: 4,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                         delay: 1,
                       }}
                       className={`absolute -bottom-4 -left-4 w-16 h-16 rounded-2xl bg-gradient-to-br ${theme.secondary} flex items-center justify-center text-3xl shadow-xl`}
@@ -414,7 +414,7 @@ const Home = () => {
                         transition={{
                           duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: [0.42, 0, 0.58, 1],
                         }}
                         className={`w-2 h-2 rounded-full ${
                           isDark ? theme.text : "bg-green-500"
@@ -516,7 +516,7 @@ const Home = () => {
                       transition={{
                         duration: 1.5,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                       }}
                     />
                     <p
@@ -530,7 +530,7 @@ const Home = () => {
                         transition={{
                           duration: 1,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: [0.42, 0, 0.58, 1],
                         }}
                         className={`inline-block w-0.5 h-6 md:h-8 ml-2 align-middle ${theme.text}`}
                       />
@@ -543,7 +543,7 @@ const Home = () => {
                       transition={{
                         duration: 1.5,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                         delay: 0.75,
                       }}
                     />
@@ -572,7 +572,7 @@ const Home = () => {
                       transition={{
                         duration: 4,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                       }}
                       className='text-2xl flex-shrink-0 mt-1'
                     >
@@ -630,7 +630,7 @@ const Home = () => {
                         transition={{
                           duration: 1.5,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: [0.42, 0, 0.58, 1],
                         }}
                       >
                         →

@@ -1,7 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
-import SectionTitle from "../components/SectionTitle";
 import GlassCard from "../components/GlassCard";
 import { qaSkills, baSkills, tools } from "../data/skills";
 
@@ -212,7 +211,7 @@ const SkillGroup = ({
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1],
                   }}
                 >
                   {items.length}
@@ -268,7 +267,7 @@ const Skills = () => {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: [0.42, 0, 0.58, 1],
         }}
         className='absolute top-20 left-10 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none'
       />
@@ -281,7 +280,7 @@ const Skills = () => {
         transition={{
           duration: 10,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: [0.42, 0, 0.58, 1],
           delay: 2,
         }}
         className='absolute bottom-20 right-10 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none'
@@ -305,7 +304,7 @@ const Skills = () => {
             duration: 4 + i,
             repeat: Infinity,
             delay: i * 0.3,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
           }}
         />
       ))}
@@ -382,7 +381,7 @@ const Skills = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               >
                 Growing 📈
@@ -393,7 +392,11 @@ const Skills = () => {
               <motion.div
                 initial={{ width: 0 }}
                 animate={isHeaderInView ? { width: "75%" } : { width: 0 }}
-                transition={{ delay: 0.6, duration: 1.5, ease: "easeOut" }}
+                transition={{
+                  delay: 0.6,
+                  duration: 1.5,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className='h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-full relative'
               >
                 {/* Animated shine effect */}
@@ -424,7 +427,7 @@ const Skills = () => {
                       duration: 1.5,
                       repeat: Infinity,
                       delay: i * 0.2,
-                      ease: "easeInOut",
+                      ease: [0.42, 0, 0.58, 1],
                     }}
                   />
                 ))}
@@ -505,7 +508,7 @@ const Skills = () => {
               transition={{
                 duration: 4,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: [0.42, 0, 0.58, 1],
               }}
             >
               🚀
@@ -520,7 +523,7 @@ const Skills = () => {
               transition={{
                 duration: 2,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: [0.42, 0, 0.58, 1],
               }}
             />
           </motion.div>
@@ -567,7 +570,7 @@ const Skills = () => {
                 transition={{
                   duration: 1.5,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               >
                 →

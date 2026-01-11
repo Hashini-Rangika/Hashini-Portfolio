@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import type { ChangeEvent, FocusEvent, FormEvent } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const GOOGLE_SCRIPT_URL =
@@ -22,66 +23,63 @@ const FeedbackForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  // Validation
+  // ---------------- VALIDATION ----------------
   const validateField = (name: string, value: string): string | undefined => {
     switch (name) {
       case "name":
         if (!value.trim()) return "Name is required";
         if (value.trim().length < 2)
           return "Name must be at least 2 characters";
-        return undefined;
+        return;
 
       case "email":
         if (!value.trim()) return "Email is required";
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) return "Please enter a valid email";
-        return undefined;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+          return "Please enter a valid email";
+        return;
 
       case "message":
         if (!value.trim()) return "Message is required";
-        if (value.trim().length < 10)
-          return "Message must be at least 10 characters";
-        if (value.trim().length > 500)
+        if (value.length < 10) return "Message must be at least 10 characters";
+        if (value.length > 500)
           return "Message must be less than 500 characters";
-        return undefined;
+        return;
 
       default:
-        return undefined;
+        return;
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((p) => ({ ...p, [name]: value }));
 
-    // Validate on change if field has been touched
     if (touched[name]) {
-      const error = validateField(name, value);
-      setErrors((prev) => ({ ...prev, [name]: error }));
+      setErrors((p) => ({ ...p, [name]: validateField(name, value) }));
     }
   };
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-
-    const error = validateField(name, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    setTouched((p) => ({ ...p, [name]: true }));
+    setErrors((p) => ({ ...p, [name]: validateField(name, value) }));
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = () => {
     const newErrors: FormErrors = {
       name: validateField("name", formData.name),
       email: validateField("email", formData.email),
@@ -91,49 +89,36 @@ const FeedbackForm = () => {
     setErrors(newErrors);
     setTouched({ name: true, email: true, message: true });
 
-    return !Object.values(newErrors).some((error) => error);
+    return !Object.values(newErrors).some(Boolean);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors", // Google Apps Script requires this
-        headers: {
-          "Content-Type": "application/json",
-        },
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
+          ...formData,
           timestamp: new Date().toISOString(),
         }),
       });
 
-      // With no-cors, we can't read the response, so we assume success
       setSuccess(true);
       setFormData({ name: "", email: "", message: "" });
-      setTouched({});
       setErrors({});
+      setTouched({});
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSuccess(false);
-      }, 5000);
-    } catch (err) {
-      console.error("Form submission error:", err);
-      setError(
-        "Failed to send feedback. Please try again or contact me directly."
-      );
+      setTimeout(() => setSuccess(false), 5000);
+    } catch {
+      setError("Failed to send feedback. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -144,7 +129,6 @@ const FeedbackForm = () => {
     const max = 500;
     const percentage = (length / max) * 100;
     const isNearLimit = percentage > 80;
-
     return { length, max, isNearLimit };
   };
 
@@ -165,7 +149,7 @@ const FeedbackForm = () => {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: [0.42, 0, 0.58, 1],
         }}
         className={`absolute -top-20 -right-20 w-64 h-64 ${theme.glow1} rounded-full blur-3xl pointer-events-none`}
       />
@@ -236,7 +220,7 @@ const FeedbackForm = () => {
                   }}
                   transition={{
                     duration: 0.5,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1],
                   }}
                   className='text-6xl mb-4'
                 >
@@ -477,7 +461,7 @@ const FeedbackForm = () => {
                           transition={{
                             duration: 1.5,
                             repeat: Infinity,
-                            ease: "easeInOut",
+                            ease: [0.42, 0, 0.58, 1],
                           }}
                         >
                           →

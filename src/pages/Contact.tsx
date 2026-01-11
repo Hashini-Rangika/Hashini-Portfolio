@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import React, { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 // Contact methods data
@@ -40,7 +40,7 @@ const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { theme, isDark } = useTheme();
-  
+
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
@@ -95,7 +95,7 @@ const Contact = () => {
         transition={{
           duration: 20,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: [0.42, 0, 0.58, 1],
         }}
         className={`absolute top-20 -left-20 w-96 h-96 ${theme.glow1} rounded-full blur-3xl pointer-events-none`}
       />
@@ -108,7 +108,7 @@ const Contact = () => {
         transition={{
           duration: 25,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: [0.42, 0, 0.58, 1],
           delay: 2,
         }}
         className={`absolute bottom-20 -right-20 w-96 h-96 ${theme.glow2} rounded-full blur-3xl pointer-events-none`}
@@ -124,7 +124,7 @@ const Contact = () => {
             height: p.h,
             left: p.left,
             top: p.top,
-            background: isDark 
+            background: isDark
               ? `linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(147, 51, 234, 0.3))`
               : `linear-gradient(135deg, rgba(34, 211, 238, 0.5), rgba(147, 51, 234, 0.5))`,
           }}
@@ -137,7 +137,7 @@ const Contact = () => {
             duration: p.duration,
             repeat: Infinity,
             delay: p.delay,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
           }}
         />
       ))}
@@ -149,12 +149,17 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className='text-5xl md:text-6xl font-bold mb-4'
         >
-          Get In <span className={`bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent`}>Touch</span>
+          Get In{" "}
+          <span
+            className={`bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent`}
+          >
+            Touch
+          </span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          className={`text-lg ${isDark ? 'text-gray-400' : 'text-slate-600'}`}
+          className={`text-lg ${isDark ? "text-gray-400" : "text-slate-600"}`}
         >
           Let's connect and collaborate
         </motion.p>
@@ -167,11 +172,13 @@ const Contact = () => {
         transition={{ delay: 0.2, duration: 0.6 }}
         className='mb-10'
       >
-        <div className={`text-center p-10 relative overflow-hidden group rounded-3xl border backdrop-blur-xl transition-all duration-500 ${
-          isDark 
-            ? 'bg-white/5 border-white/10' 
-            : 'bg-white/80 border-slate-200'
-        }`}>
+        <div
+          className={`text-center p-10 relative overflow-hidden group rounded-3xl border backdrop-blur-xl transition-all duration-500 ${
+            isDark
+              ? "bg-white/5 border-white/10"
+              : "bg-white/80 border-slate-200"
+          }`}
+        >
           {/* Animated gradient background */}
           <motion.div
             className={`absolute inset-0 bg-gradient-to-br ${theme.primary}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
@@ -201,7 +208,7 @@ const Contact = () => {
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               >
                 👋
@@ -216,14 +223,14 @@ const Contact = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               />
             </motion.div>
 
             <motion.p
               className={`text-xl leading-relaxed mb-6 max-w-2xl mx-auto ${
-                isDark ? 'text-gray-300' : 'text-slate-700'
+                isDark ? "text-gray-300" : "text-slate-700"
               }`}
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
@@ -245,8 +252,8 @@ const Contact = () => {
               transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
               className={`inline-flex items-center gap-3 px-6 py-3 rounded-full border ${
                 isDark
-                  ? 'bg-gradient-to-r from-green-500/20 to-cyan-500/20 border-green-500/30'
-                  : 'bg-gradient-to-r from-green-100 to-cyan-100 border-green-300'
+                  ? "bg-gradient-to-r from-green-500/20 to-cyan-500/20 border-green-500/30"
+                  : "bg-gradient-to-r from-green-100 to-cyan-100 border-green-300"
               }`}
             >
               <motion.span
@@ -254,7 +261,7 @@ const Contact = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
                 className='text-2xl'
               >
@@ -270,12 +277,14 @@ const Contact = () => {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1],
                   }}
                 />
-                <span className={`font-bold ${
-                  isDark ? 'text-green-400' : 'text-green-600'
-                }`}>
+                <span
+                  className={`font-bold ${
+                    isDark ? "text-green-400" : "text-green-600"
+                  }`}
+                >
                   Available for collaboration
                 </span>
               </div>
@@ -283,8 +292,12 @@ const Contact = () => {
           </div>
 
           {/* Decorative corners */}
-          <div className={`absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 rounded-tl-2xl ${theme.border}/20`} />
-          <div className={`absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 rounded-br-2xl ${theme.borderSecondary}/20`} />
+          <div
+            className={`absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 rounded-tl-2xl ${theme.border}/20`}
+          />
+          <div
+            className={`absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 rounded-br-2xl ${theme.borderSecondary}/20`}
+          />
         </div>
       </motion.div>
 
@@ -306,11 +319,13 @@ const Contact = () => {
             whileHover={{ scale: 1.02, y: -5 }}
             className='block relative'
           >
-            <div className={`p-6 md:p-8 group transition-all duration-500 relative overflow-hidden rounded-3xl border backdrop-blur-xl ${
-              isDark 
-                ? 'bg-white/5 border-white/10 hover:border-cyan-500/30' 
-                : 'bg-white/90 border-slate-200 hover:border-cyan-300'
-            }`}>
+            <div
+              className={`p-6 md:p-8 group transition-all duration-500 relative overflow-hidden rounded-3xl border backdrop-blur-xl ${
+                isDark
+                  ? "bg-white/5 border-white/10 hover:border-cyan-500/30"
+                  : "bg-white/90 border-slate-200 hover:border-cyan-300"
+              }`}
+            >
               {/* Animated hover gradient background */}
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-r ${method.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -340,7 +355,7 @@ const Contact = () => {
                       transition={{
                         duration: 1,
                         delay: i * 0.1,
-                        ease: "easeOut",
+                        ease: [0.22, 1, 0.36, 1],
                       }}
                     />
                   ))}
@@ -364,11 +379,13 @@ const Contact = () => {
                 {/* Enhanced content */}
                 <div className='flex-grow min-w-0'>
                   <div className='flex items-start justify-between gap-4 mb-2'>
-                    <h3 className={`text-2xl font-bold transition-colors flex items-center gap-2 ${
-                      isDark 
-                        ? 'text-white group-hover:text-cyan-400' 
-                        : 'text-slate-900 group-hover:text-cyan-600'
-                    }`}>
+                    <h3
+                      className={`text-2xl font-bold transition-colors flex items-center gap-2 ${
+                        isDark
+                          ? "text-white group-hover:text-cyan-400"
+                          : "text-slate-900 group-hover:text-cyan-600"
+                      }`}
+                    >
                       {method.title}
                       <motion.span
                         initial={{ opacity: 0, x: -5 }}
@@ -384,9 +401,11 @@ const Contact = () => {
                     </h3>
                   </div>
 
-                  <p className={`text-base mb-3 ${
-                    isDark ? 'text-gray-400' : 'text-slate-600'
-                  }`}>
+                  <p
+                    className={`text-base mb-3 ${
+                      isDark ? "text-gray-400" : "text-slate-600"
+                    }`}
+                  >
                     {method.description}
                   </p>
 
@@ -394,21 +413,27 @@ const Contact = () => {
                     <a
                       href={method.link}
                       target={method.id !== "email" ? "_blank" : undefined}
-                      rel={method.id !== "email" ? "noopener noreferrer" : undefined}
+                      rel={
+                        method.id !== "email"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className={`font-semibold truncate transition-colors flex items-center gap-2 group/link ${
-                        isDark 
-                          ? 'text-cyan-400 hover:text-cyan-300' 
-                          : 'text-cyan-600 hover:text-cyan-500'
+                        isDark
+                          ? "text-cyan-400 hover:text-cyan-300"
+                          : "text-cyan-600 hover:text-cyan-500"
                       }`}
                     >
                       {method.value}
                       <motion.span
                         className='opacity-0 group-hover/link:opacity-100'
-                        animate={hoveredCard === method.id ? { x: [0, 5, 0] } : {}}
+                        animate={
+                          hoveredCard === method.id ? { x: [0, 5, 0] } : {}
+                        }
                         transition={{
                           duration: 1,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: [0.42, 0, 0.58, 1],
                         }}
                       >
                         🔗
@@ -421,9 +446,9 @@ const Contact = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-                          isDark 
-                            ? 'bg-white/10 hover:bg-white/20 text-gray-300' 
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                          isDark
+                            ? "bg-white/10 hover:bg-white/20 text-gray-300"
+                            : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                         }`}
                       >
                         {copiedEmail ? (
@@ -441,9 +466,11 @@ const Contact = () => {
                     )}
                   </div>
 
-                  <p className={`text-sm mt-2 flex items-center gap-2 ${
-                    isDark ? 'text-gray-500' : 'text-slate-500'
-                  }`}>
+                  <p
+                    className={`text-sm mt-2 flex items-center gap-2 ${
+                      isDark ? "text-gray-500" : "text-slate-500"
+                    }`}
+                  >
                     <span>📍</span>
                     {method.subtext}
                   </p>
@@ -452,15 +479,17 @@ const Contact = () => {
                 {/* Enhanced arrow with animation */}
                 <motion.div
                   className={`transition-colors flex-shrink-0 ${
-                    isDark 
-                      ? 'text-gray-400 group-hover:text-cyan-400' 
-                      : 'text-slate-400 group-hover:text-cyan-600'
+                    isDark
+                      ? "text-gray-400 group-hover:text-cyan-400"
+                      : "text-slate-400 group-hover:text-cyan-600"
                   }`}
-                  animate={hoveredCard === method.id ? { x: [0, 10, 0] } : { x: 0 }}
+                  animate={
+                    hoveredCard === method.id ? { x: [0, 10, 0] } : { x: 0 }
+                  }
                   transition={{
                     duration: 1.5,
                     repeat: hoveredCard === method.id ? Infinity : 0,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1],
                   }}
                 >
                   <svg
@@ -490,17 +519,19 @@ const Contact = () => {
         transition={{ delay: 0.8, duration: 0.6 }}
         className='mb-10'
       >
-        <div className={`p-10 text-center relative overflow-hidden group rounded-3xl border backdrop-blur-xl ${
-          isDark 
-            ? 'bg-gradient-to-br from-white/5 to-white/[0.02] border-white/10' 
-            : 'bg-gradient-to-br from-white/80 to-white/60 border-slate-200'
-        }`}>
+        <div
+          className={`p-10 text-center relative overflow-hidden group rounded-3xl border backdrop-blur-xl ${
+            isDark
+              ? "bg-gradient-to-br from-white/5 to-white/[0.02] border-white/10"
+              : "bg-gradient-to-br from-white/80 to-white/60 border-slate-200"
+          }`}
+        >
           {/* Animated background pattern */}
           <div
             className='absolute inset-0 opacity-[0.02]'
             style={{
               backgroundImage: `radial-gradient(circle at 2px 2px, ${
-                isDark ? 'rgba(34, 211, 238, 0.5)' : 'rgba(34, 211, 238, 0.3)'
+                isDark ? "rgba(34, 211, 238, 0.5)" : "rgba(34, 211, 238, 0.3)"
               } 1px, transparent 0)`,
               backgroundSize: "30px 30px",
             }}
@@ -522,7 +553,7 @@ const Contact = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               >
                 ⚡
@@ -537,14 +568,14 @@ const Contact = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               />
             </motion.div>
 
             <motion.h3
               className={`text-2xl md:text-3xl font-bold mb-4 ${
-                isDark ? 'text-white' : 'text-slate-900'
+                isDark ? "text-white" : "text-slate-900"
               }`}
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
@@ -555,15 +586,15 @@ const Contact = () => {
 
             <motion.p
               className={`mb-8 text-lg max-w-2xl mx-auto ${
-                isDark ? 'text-gray-400' : 'text-slate-600'
+                isDark ? "text-gray-400" : "text-slate-600"
               }`}
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 1.2, duration: 0.6 }}
             >
               I typically respond to all inquiries within{" "}
-              <span className={`${theme.text} font-bold`}>24 hours</span>. Looking
-              forward to hearing from you!
+              <span className={`${theme.text} font-bold`}>24 hours</span>.
+              Looking forward to hearing from you!
             </motion.p>
 
             {/* Enhanced social proof indicators */}
@@ -585,15 +616,17 @@ const Contact = () => {
                   transition={{ delay: 1.4 + index * 0.1, duration: 0.5 }}
                   whileHover={{ scale: 1.1, y: -5 }}
                   className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-white/5 border-white/10 hover:border-cyan-500/30 hover:bg-white/10' 
-                      : 'bg-slate-100 border-slate-200 hover:border-cyan-300 hover:bg-white'
+                    isDark
+                      ? "bg-white/5 border-white/10 hover:border-cyan-500/30 hover:bg-white/10"
+                      : "bg-slate-100 border-slate-200 hover:border-cyan-300 hover:bg-white"
                   }`}
                 >
                   <span className='text-xl'>{item.icon}</span>
-                  <span className={`font-medium ${
-                    isDark ? 'text-gray-400' : 'text-slate-600'
-                  }`}>
+                  <span
+                    className={`font-medium ${
+                      isDark ? "text-gray-400" : "text-slate-600"
+                    }`}
+                  >
                     {item.label}
                   </span>
                 </motion.div>
@@ -615,13 +648,13 @@ const Contact = () => {
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
           className={`group relative inline-flex items-center gap-3 px-10 py-4 rounded-xl border-2 font-bold transition-all duration-300 overflow-hidden ${
-            isDark 
-              ? 'border-white/20 text-white hover:border-cyan-400/50 hover:bg-white/5' 
-              : 'border-slate-300 text-slate-700 hover:border-cyan-400 hover:bg-slate-50'
+            isDark
+              ? "border-white/20 text-white hover:border-cyan-400/50 hover:bg-white/5"
+              : "border-slate-300 text-slate-700 hover:border-cyan-400 hover:bg-slate-50"
           }`}
         >
-          <motion.div 
-            className={`absolute inset-0 bg-gradient-to-r ${theme.primary}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} 
+          <motion.div
+            className={`absolute inset-0 bg-gradient-to-r ${theme.primary}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
           />
 
           <motion.span
@@ -632,15 +665,17 @@ const Contact = () => {
             📄
           </motion.span>
 
-          <span className={`relative z-10 transition-colors ${
-            isDark ? 'group-hover:text-cyan-400' : 'group-hover:text-cyan-600'
-          }`}>
+          <span
+            className={`relative z-10 transition-colors ${
+              isDark ? "group-hover:text-cyan-400" : "group-hover:text-cyan-600"
+            }`}
+          >
             View Resume
           </span>
 
           <motion.span
             className={`relative z-10 transition-colors ${
-              isDark ? 'group-hover:text-cyan-400' : 'group-hover:text-cyan-600'
+              isDark ? "group-hover:text-cyan-400" : "group-hover:text-cyan-600"
             }`}
             animate={{ x: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
@@ -657,7 +692,7 @@ const Contact = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center px-4"
+            className='fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center px-4'
             onClick={() => setShowResumeModal(false)}
           >
             <motion.div
@@ -666,27 +701,31 @@ const Contact = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className={`relative w-full max-w-5xl h-[85vh] rounded-2xl overflow-hidden shadow-2xl border ${
-                isDark 
-                  ? 'bg-slate-900 border-white/10' 
-                  : 'bg-white border-slate-200'
+                isDark
+                  ? "bg-slate-900 border-white/10"
+                  : "bg-white border-slate-200"
               }`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className={`flex items-center justify-between px-6 py-4 border-b ${
-                isDark 
-                  ? 'bg-slate-950 border-white/10' 
-                  : 'bg-slate-100 border-slate-200'
-              }`}>
-                <h3 className={`text-lg font-bold flex items-center gap-2 ${
-                  isDark ? 'text-white' : 'text-slate-900'
-                }`}>
+              <div
+                className={`flex items-center justify-between px-6 py-4 border-b ${
+                  isDark
+                    ? "bg-slate-950 border-white/10"
+                    : "bg-slate-100 border-slate-200"
+                }`}
+              >
+                <h3
+                  className={`text-lg font-bold flex items-center gap-2 ${
+                    isDark ? "text-white" : "text-slate-900"
+                  }`}
+                >
                   📄 Resume – Hashini Wickramasooriya
                 </h3>
 
                 <div className='flex items-center gap-3'>
                   <a
-                    href="/Hashini_Wickramasooriya_CV.pdf"
+                    href='/Hashini_Wickramasooriya_CV.pdf'
                     download
                     className={`px-4 py-2 rounded-lg font-semibold transition bg-gradient-to-r ${theme.primary} text-white hover:shadow-lg`}
                   >
@@ -696,9 +735,9 @@ const Contact = () => {
                   <button
                     onClick={() => setShowResumeModal(false)}
                     className={`px-4 py-2 rounded-lg transition ${
-                      isDark 
-                        ? 'bg-white/10 hover:bg-white/20 text-white' 
-                        : 'bg-slate-200 hover:bg-slate-300 text-slate-700'
+                      isDark
+                        ? "bg-white/10 hover:bg-white/20 text-white"
+                        : "bg-slate-200 hover:bg-slate-300 text-slate-700"
                     }`}
                   >
                     ✕
@@ -708,8 +747,8 @@ const Contact = () => {
 
               {/* PDF Viewer */}
               <iframe
-                src="/Hashini_Wickramasooriya_CV.pdf"
-                title="Resume Preview"
+                src='/Hashini_Wickramasooriya_CV.pdf'
+                title='Resume Preview'
                 className='w-full h-full bg-white'
               />
             </motion.div>

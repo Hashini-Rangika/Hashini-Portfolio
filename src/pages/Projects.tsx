@@ -124,7 +124,6 @@ const Projects = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
       },
     },
   };
@@ -185,7 +184,7 @@ const Projects = () => {
             duration: 3 + i * 0.5,
             repeat: Infinity,
             delay: i * 0.2,
-            ease: "easeInOut",
+            ease: [0.42, 0, 0.58, 1],
           }}
         />
       ))}
@@ -315,7 +314,7 @@ const Projects = () => {
         animate={isInView ? "visible" : "hidden"}
         className='grid md:grid-cols-2 gap-8 mb-16'
       >
-        {filteredProjects.map((project, index) => (
+        {filteredProjects.map((project) => (
           <motion.div
             key={project.id}
             variants={itemVariants}
@@ -532,7 +531,7 @@ const Projects = () => {
                 transition={{
                   duration: 4,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
               >
                 🤝
@@ -607,7 +606,7 @@ const Projects = () => {
                     transition={{
                       duration: 1.5,
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: [0.42, 0, 0.58, 1],
                     }}
                   >
                     →

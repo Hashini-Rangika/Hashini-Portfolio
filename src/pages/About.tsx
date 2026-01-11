@@ -3,8 +3,6 @@ import { useRef } from "react";
 import { useTheme, themes } from "../context/ThemeContext";
 import FeedbackForm from "../components/FeedbackForm";
 
-
-import SectionTitle from "../components/SectionTitle";
 import GlassCard from "../components/GlassCard";
 
 const About = () => {
@@ -38,14 +36,12 @@ const About = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
       },
     },
   };
 
   return (
     <section
-    
       className='min-h-screen px-6 py-20 max-w-6xl mx-auto relative'
       ref={ref}
     >
@@ -160,7 +156,7 @@ const About = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
                 className='w-2 h-2 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50'
               />
@@ -210,7 +206,7 @@ const About = () => {
                 transition={{
                   duration: 4,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.42, 0, 0.58, 1],
                 }}
                 className='text-2xl flex-shrink-0'
               >
@@ -294,7 +290,7 @@ const About = () => {
                   transition={{
                     duration: 3,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: [0.42, 0, 0.58, 1],
                     delay: index * 0.3,
                   }}
                   className='text-4xl mb-4 inline-block'
@@ -356,7 +352,7 @@ const About = () => {
                     transition={{
                       duration: 2,
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: [0.42, 0, 0.58, 1],
                     }}
                   />
                   Core Principles
@@ -415,7 +411,7 @@ const About = () => {
                       transition={{
                         duration: 3,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: [0.42, 0, 0.58, 1],
                         delay: index * 0.2,
                       }}
                     >
@@ -518,7 +514,6 @@ const About = () => {
         </motion.div>
       </motion.div>
       <FeedbackForm />
-
     </section>
   );
 };
