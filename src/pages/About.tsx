@@ -1,6 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useTheme, themes } from "../context/ThemeContext";
+import FeedbackForm from "../components/FeedbackForm";
+
 
 import SectionTitle from "../components/SectionTitle";
 import GlassCard from "../components/GlassCard";
@@ -43,6 +45,7 @@ const About = () => {
 
   return (
     <section
+    
       className='min-h-screen px-6 py-20 max-w-6xl mx-auto relative'
       ref={ref}
     >
@@ -514,6 +517,8 @@ const About = () => {
           </GlassCard>
         </motion.div>
       </motion.div>
+      <FeedbackForm />
+
     </section>
   );
 };
