@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import SectionTitle from "../components/SectionTitle";
 import GlassCard from "../components/GlassCard";
 import { qaSkills, baSkills, tools } from "../data/skills";
@@ -250,6 +251,7 @@ const SkillGroup = ({
 const Skills = () => {
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true });
+  const { theme, isDark } = useTheme();
 
   return (
     <section
@@ -308,10 +310,30 @@ const Skills = () => {
         />
       ))}
 
-      <SectionTitle
-        title='Skills'
-        subtitle='My technical and analytical strengths'
-      />
+      <div className='text-center mb-16'>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className='text-5xl md:text-6xl font-bold mb-4'
+        >
+          My{" "}
+          <span
+            className={`bg-gradient-to-r ${theme.primary} bg-clip-text text-transparent`}
+          >
+            Skills
+          </span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isHeaderInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.2 }}
+          className={`text-lg ${isDark ? "text-gray-400" : "text-slate-600"}`}
+        >
+          My technical and analytical strengths in QA & Business Analytics
+        </motion.p>
+      </div>
 
       {/* Enhanced skills progress indicator */}
       <motion.div

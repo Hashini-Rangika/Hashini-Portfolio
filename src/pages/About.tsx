@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useTheme, themes } from "../context/ThemeContext";
 
 import SectionTitle from "../components/SectionTitle";
 import GlassCard from "../components/GlassCard";
@@ -7,6 +8,15 @@ import GlassCard from "../components/GlassCard";
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  let themeObj = themes.cyan;
+  let isDark = true;
+  try {
+    const ctx = useTheme();
+    themeObj = ctx.theme;
+    isDark = ctx.isDark;
+  } catch (e) {
+    // ThemeProvider not present — fall back to default theme
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -85,10 +95,30 @@ const About = () => {
         />
       ))}
 
-      <SectionTitle
-        title='About Me'
-        subtitle="Who I am and where I'm heading"
-      />
+      <div className='text-center mb-16'>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className='text-5xl md:text-6xl font-bold mb-4'
+        >
+          About{" "}
+          <span
+            className={`bg-gradient-to-r ${themeObj.primary} bg-clip-text text-transparent`}
+          >
+            Me
+          </span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.2 }}
+          className={`text-lg ${isDark ? "text-gray-400" : "text-slate-600"}`}
+        >
+          Who I am and where I&apos;m heading
+        </motion.p>
+      </div>
 
       <motion.div
         variants={containerVariants}
@@ -116,7 +146,7 @@ const About = () => {
               <motion.div
                 className='h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full'
                 initial={{ width: 0 }}
-                animate={isInView ? { width: 100 } : { width: 0 }}
+                animate={isInView ? { width: "100%" } : { width: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
               />
               <motion.div
