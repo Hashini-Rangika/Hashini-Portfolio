@@ -12,7 +12,7 @@ const projectsData = [
       "Comprehensive QA testing for a task management application with focus on user workflows and data integrity.",
     icon: "📋",
     tech: ["Manual Testing", "Test Cases", "Bug Tracking", "Jira"],
-    impact: "Identified 45+ critical bugs",
+    impact: "Identified 25+ critical bugs",
     achievements: [
       "Created 150+ test cases",
       "Improved app stability by 40%",
